@@ -21,8 +21,8 @@ class App extends Component {
               <Col span={24}><Header /></Col>
             </Row>
             <Row>
-              <Col span={4}><SideBar /></Col>
-              <Col span={20} style={{"paddingLeft":"20px"}}><List /></Col>
+              <Col xs={{span:0}} md={{span:4}}><SideBar /></Col>
+              <Col xs={{span:24}} md={{span:20}} style={{"paddingLeft":"20px"}}><List /></Col>
             </Row>
           </Route>
           <Route path='/login'  exact component={Login}></Route>

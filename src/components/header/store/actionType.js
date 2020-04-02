@@ -1,1 +1,1 @@
-// export const HANLE_INPUT_FOCUS = 'header/handle_input_focus';
+export const HANDLE_CLICK = 'header/handle_click';
