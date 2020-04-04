@@ -11,9 +11,21 @@ import { Pagination } from 'antd';
 
 class List extends Component {
     render() {
+        
         const {changePage,onChangeDisplay,
             display,changedList,currentPage,
             handeleDislike,filterList,chosenTag} = this.props;
+
+        const onDislikeBtn = (e,index,btnType)=>{
+            let btns = document.getElementsByClassName(btnType);
+            btns[index].style.color = "#c1c1c1";
+        }
+
+        const outDislikeBtn = (e,index,btnType)=>{
+            let btns = document.getElementsByClassName(btnType);
+            btns[index].style.color = "inherit";
+        }
+
         return (    
             <div className="site-card-wrapper">
                 <Row gutter={16} justify="center" style={{"padding":"10px 0"}}>
@@ -37,7 +49,7 @@ class List extends Component {
                         </Radio.Group>
                     </Col>
                 </Row>
-                <Row gutter={16} justify="center">
+                <Row justify="center">
                     {
                         changedList === [] ?
                         <div>no data</div> :
@@ -47,7 +59,7 @@ class List extends Component {
                                     <Col xl={{span:6,offset:0}} lg={{ span: 8, offset:0}} md={{span:12,offset:0}}sm={{ span: 12, offset:0 }} key={item.get("title")}>
                                         <Card
                                             hoverable
-                                            style={{ width: 240 }}
+                                            style={{ width: 200, margin:"15px" }}
                                             cover={<img alt="example" src={item.get("imgUrl")} />}
                                         >
                                             <Row align="bottom">
@@ -64,10 +76,20 @@ class List extends Component {
                                             </Row>
                                             <Row style={{"padding":"10px 0"}}>
                                                 <Col span={12} align="center" justify="center">
-                                                    <DislikeOutlined style={{"fontSize":"23px"}} onClick={()=>{handeleDislike(item.get("catalogue"));filterList();}}/>
+                                                    <DislikeOutlined 
+                                                        className="dislikeBtn" 
+                                                        style={{"fontSize":"23px"}} 
+                                                        onMouseEnter={(e,i)=>{onDislikeBtn(e,index,"dislikeBtn")}} 
+                                                        onMouseLeave={(e,i)=>{outDislikeBtn(e,index,"dislikeBtn")}}
+                                                        onClick={()=>{handeleDislike(item.get("catalogue"));filterList();}}
+                                                    />
                                                 </Col>
                                                 <Col span={12} align="center" justify="center">
-                                                    <LikeOutlined style={{"fontSize":"23px"}}/>
+                                                    <LikeOutlined style={{"fontSize":"23px"}} 
+                                                        className="likeBtn" 
+                                                        onMouseEnter={(e,i)=>{onDislikeBtn(e,index,"likeBtn")}} 
+                                                        onMouseLeave={(e,i)=>{outDislikeBtn(e,index,"likeBtn")}}
+                                                    />
                                                 </Col>
                                             </Row>
                                         </Card>
@@ -78,7 +100,7 @@ class List extends Component {
                         })
                     }
                 </Row>
-                <Row justify="center" style={{"margin":"10px 0"}}>
+                <Row justify="center" style={{"margin":"20px 0"}}>
                     {
                         chosenTag.toJS().length === 0  ?
                         <Pagination 

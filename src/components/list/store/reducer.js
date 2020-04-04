@@ -91,6 +91,14 @@ const chooseFilm = function(choose,filmList){
     return newList;
 }
 
+
+const searchFilm = function(str,filmList){
+    let newList = filmList.filter((item)=>{
+        return item.title.toLowerCase().indexOf(str.toLowerCase()) > -1;
+    })
+    return newList;
+}
+
 export default (prevState = defaultState,action)=>{
 	switch (action.type) {
         case actionType.HANDLE_DISLIKE:
@@ -104,6 +112,8 @@ export default (prevState = defaultState,action)=>{
             return prevState.set("display",action.displayNumber);
         case actionType.CHANGE_PAGE:
             return prevState.set("currentPage",action.pageNumber);
+        case headerActionType.SEARCH_FILM:
+            return prevState.set("changedList",fromJS(searchFilm(action.value,prevState.get("totalList").toJS())))
         case headerActionType.HANDLE_CLICK:
             {   
                 if(action.item === "all") return prevState.set("changedList",prevState.get("totalList"));
