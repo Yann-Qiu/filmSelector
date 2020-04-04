@@ -6,3 +6,10 @@ export const handleClick = (item) => {
 		item:item
     }
 }
+
+export const searchFilm = (value) => {
+	return {
+		type: actionType.SEARCH_FILM,
+		value:value
+    }
+}
