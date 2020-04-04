@@ -8,10 +8,11 @@ import {
 import  { actionCreator } from './store';
 import { Radio } from 'antd';
 import { Pagination } from 'antd';
+import { message } from 'antd';
 
 class List extends Component {
     render() {
-        
+
         const {changePage,onChangeDisplay,
             display,changedList,currentPage,
             handeleDislike,filterList,chosenTag} = this.props;
@@ -25,6 +26,10 @@ class List extends Component {
             let btns = document.getElementsByClassName(btnType);
             btns[index].style.color = "inherit";
         }
+
+        const info = (catalogue) => {
+            message.success("Successfully removed this catalogue: "+ catalogue);
+          };
 
         return (    
             <div className="site-card-wrapper">
@@ -81,7 +86,7 @@ class List extends Component {
                                                         style={{"fontSize":"23px"}} 
                                                         onMouseEnter={(e,i)=>{onDislikeBtn(e,index,"dislikeBtn")}} 
                                                         onMouseLeave={(e,i)=>{outDislikeBtn(e,index,"dislikeBtn")}}
-                                                        onClick={()=>{handeleDislike(item.get("catalogue"));filterList();}}
+                                                        onClick={()=>{handeleDislike(item.get("catalogue"));filterList();info(item.get("catalogue"));}}
                                                     />
                                                 </Col>
                                                 <Col span={12} align="center" justify="center">
