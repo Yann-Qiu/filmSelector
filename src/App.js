@@ -21,7 +21,7 @@ class App extends Component {
               <Col span={24}><Header /></Col>
             </Row>
             <Row>
-              <Col xs={{span:0}} md={{span:4}}><SideBar /></Col>
+              <Col xs={{span:0}} md={{span:4}} style={{"height":"100%"}}><SideBar /></Col>
               <Col xs={{span:24}} md={{span:20}} style={{"paddingLeft":"20px"}}><List /></Col>
             </Row>
           </Route>
