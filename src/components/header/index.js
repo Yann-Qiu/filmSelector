@@ -53,7 +53,7 @@ class Header extends Component {
                 <Col xs={{span:12}} lg={{span:8}}>
                     <Search 
                         placeholder="input search text" 
-                        onSearch={value => console.log(value)} 
+                        onSearch={(value) => {this.props.searchFilm(value);}} 
                         enterButton 
                     />
                 </Col>
@@ -85,6 +85,9 @@ function mapDispatchToProps(dispatch) {
     return {
         handleClick(item){
             dispatch(actionCreator.handleClick(item));
+        },
+        searchFilm(value){
+            dispatch(actionCreator.searchFilm(value));
         }
     }
 }
