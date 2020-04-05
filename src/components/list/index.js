@@ -7,7 +7,7 @@ import {
 } from './style.js';
 import  { actionCreator } from './store';
 import { Radio } from 'antd';
-import { Pagination } from 'antd';
+import { Pagination,Divider } from 'antd';
 import { message } from 'antd';
 
 class List extends Component {
@@ -33,7 +33,7 @@ class List extends Component {
 
         return (    
             <div className="site-card-wrapper">
-                <Row gutter={16} justify="center" style={{"padding":"10px 0"}}>
+                <Row style={{"padding":"10px 0"}}>
                     <Col xl={{span:16,offset:8}} xs={{span:22,offset:2}}>
                         <Radio.Group onChange={(e)=>{changePage(1);onChangeDisplay(e);}} defaultValue="a">
                             {
@@ -54,17 +54,29 @@ class List extends Component {
                         </Radio.Group>
                     </Col>
                 </Row>
-                <Row justify="center">
+                <Divider />
+                <Row>
                     {
-                        changedList === [] ?
-                        <div>no data</div> :
+                        changedList.length === 0 ?
+                        (
+                            <Row>
+                                <Col>No Data</Col>
+                            </Row>
+                        ) :
                         changedList.map((item,index)=>{
                             for(let i=index;i<currentPage*display&&i>=(currentPage-1)*display;i++){
                                 return(
-                                    <Col xl={{span:6,offset:0}} lg={{ span: 8, offset:0}} md={{span:12,offset:0}}sm={{ span: 12, offset:0 }} key={item.get("title")}>
+                                    <Col 
+                                        xl={{span:5,offset:1}} 
+                                        lg={{span: 7, offset:1}} 
+                                        md={{span:11,offset:1}} 
+                                        sm={{span: 11, offset:1}}
+                                        xs={{span:18, offset:6}} 
+                                        key={item.get("title")}
+                                    >
                                         <Card
                                             hoverable
-                                            style={{ width: 200, margin:"15px" }}
+                                            style={{ width: 200,marginBottom:"32px"}}
                                             cover={<img alt="example" src={item.get("imgUrl")} />}
                                         >
                                             <Row align="bottom">
@@ -111,13 +123,16 @@ class List extends Component {
                         <Pagination 
                             defaultCurrent={1} 
                             total={1} 
-                            pageSize={1} 
+                            pageSize={1}
+                            hideOnSinglePage 
                         />:
                         <Pagination 
                             current={currentPage} 
                             total={changedList.toJS().length} 
                             pageSize={display} 
                             onChange={(page)=>{changePage(page)}}
+                            showTotal={total => `Total ${total} items`}
+                            responsive
                         />
                      }
                 </Row>
