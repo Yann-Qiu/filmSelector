@@ -12,7 +12,6 @@ import Login from './components/login';
 
 class App extends Component {
   render() {
-    console.log(window.innerWidth);
     return (
       <Fragment>
        <Provider store = {store}>

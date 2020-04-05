@@ -6,7 +6,7 @@ import {
 	Title,Catalogue
 } from './style.js';
 import  { actionCreator } from './store';
-import { Radio } from 'antd';
+import { Radio,Rate } from 'antd';
 import { Pagination,Divider } from 'antd';
 import { message } from 'antd';
 
@@ -90,6 +90,9 @@ class List extends Component {
                                                         {item.get("catalogue")}
                                                     </Catalogue>   
                                                 </Col> 
+                                            </Row>
+                                            <Row justify="center">
+                                                <Rate disabled allowHalf value={item.get("note")} tooltips={["inacceptable","bad","acceptable","good","execllent"]}/>
                                             </Row>
                                             <Row style={{"padding":"10px 0"}}>
                                                 <Col span={12} align="center" justify="center">

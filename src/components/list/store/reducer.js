@@ -8,58 +8,72 @@ const filmlist = [
         title:"Spectre (VF)",
         imgUrl:"https://i.ytimg.com/vi/EDC4q5Bw2QE/movieposter.jpg",
         catalogue:"action",
+        note:4
     },{
         title:"Jason",
         imgUrl:"https://i.ytimg.com/vi/GRW2UMSYX4o/movieposter.jpg",
         catalogue:"action",
+        note:4.5
     },{
         title:"Contagion",
         imgUrl:"https://i.ytimg.com/vi/wMDoUFajq1I/movieposter.jpg",
         catalogue:"amour",
+        note:3.5
     },{
         title:"La vie",
         imgUrl:"https://i.ytimg.com/vi/04Cx-i2k-8M/movieposter.jpg",
         catalogue:"famille",
+        note:4
     },{
         title:"ROBO",
         imgUrl:"https://i.ytimg.com/vi/W4jt3Gp98jI/movieposter.jpg",
         catalogue:"faction",
+        note:3.5
     },{
         title:"JOKER",
         imgUrl:"https://i.ytimg.com/vi/UvuS3Q0yzLk/movieposter.jpg",
         catalogue:"horrible",
+        note:4.5
     },{
         title:"Les Miserables",
         imgUrl:"https://i.ytimg.com/vi/4NVTKmoQ98E/movieposter.jpg",
         catalogue:"action",
+        note:5
     },{
         title:"Inseparable",
         imgUrl:"https://i.ytimg.com/vi/aIVXeqgxyJA/movieposter.jpg",
         catalogue:"faction",
+        note:3.5
     },{
         title:"Car-Quatre roues",
         imgUrl:"https://i.ytimg.com/vi/_cfMFdsJytA/movieposter.jpg",
         catalogue:"cartoon",
+        note:3.5
     },{
         title:"Mister Babadook",
         imgUrl:"https://i.ytimg.com/vi/cWnER_z7pwU/movieposter.jpg",
         catalogue:"horrible",
+        note:4
     },{
         title:"La Reine de Neiges",
         imgUrl:"https://i.ytimg.com/vi/5rIxR2KUhEg/movieposter.jpg",
         catalogue:"cartoon",
+        note:4.5
     },{
         title:"Fast & Furious",
         imgUrl:"https://i.ytimg.com/vi/m0bGgPiCs-k/movieposter.jpg",
         catalogue:"action",
+        note:5
     },{
         title:"FAHIM",
         imgUrl:"https://i.ytimg.com/vi/djiIoX3O_-c/movieposter.jpg",
         catalogue:"famille",
+        note:3.5
     },{
         title:"Emma",
         imgUrl:"https://i.ytimg.com/vi/E42CvUIcjtA/movieposter.jpg",
         catalogue:"comedy",
+        note:3
     },
 ]
 
@@ -87,7 +101,6 @@ const chooseFilm = function(choose,filmList){
     let newList = filmList.filter((item)=>{
         return choose.indexOf(item.catalogue) >= 0 ;
     })
-    console.log("after filter"+ newList);
     return newList;
 }
 
@@ -116,12 +129,19 @@ export default (prevState = defaultState,action)=>{
             return prevState.set("changedList",fromJS(searchFilm(action.value,prevState.get("totalList").toJS())))
         case headerActionType.HANDLE_CLICK:
             {   
-                if(action.item === "all") return prevState.set("changedList",prevState.get("totalList"));
+                if(action.item === "all") 
+                    return prevState.set("changedList",prevState.get("totalList"));
                 let newList = chooseFilm([action.item],prevState.get("totalList").toJS());
                 return prevState.set("changedList",fromJS(newList));
             }
         case sideBarActionType.ADD_LIST:
             {	
+                if(action.item === "all"){
+                    return prevState.merge({
+                        "dislike":fromJS([]),
+                        "chosenTag":prevState.get("chosenTag").push(action.item)
+                    })
+                }
                 return prevState.set("chosenTag",prevState.get("chosenTag").push(action.item));
             }
         case sideBarActionType.DELETE_LIST:
@@ -133,14 +153,12 @@ export default (prevState = defaultState,action)=>{
             {
                 let chosenTag = prevState.get("chosenTag").toJS();
                 if(chosenTag.length === 0){
-                    console.log(1);
                     return prevState.set("changedList",[]);
                 }
                 if(chosenTag.indexOf("all")!== -1){
                     return prevState.set("changedList",prevState.get("totalList"));
                     
                 }else{
-                    console.log(3);
                     let newList = chooseFilm(chosenTag,prevState.get("totalList").toJS());
                     return prevState.set("changedList",fromJS(newList));
                 }

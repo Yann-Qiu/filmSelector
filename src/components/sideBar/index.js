@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Menu } from 'antd';
+import { Menu,Checkbox } from 'antd';
 import { YoutubeOutlined } from '@ant-design/icons';
 import  { actionCreator } from './store';
 
@@ -44,16 +44,14 @@ class SiderBar extends Component {
                         return (
                             chosenTag.indexOf(item) >=0 ?
                             <Menu.Item key={item} >
-                                <label>
-                                    <input type="checkbox" name="catalogue" value={item} checked={true} onChange={()=>{deleteList(item);updateList();}}
-                                      />{item}
-                                </label>
+                                <Checkbox checked={true} onChange={()=>{deleteList(item);updateList();}}>
+                                    {item}
+                                </Checkbox>
                             </Menu.Item>:
                             <Menu.Item key={item} >
-                                <label>
-                                    <input type="checkbox" name="catalogue" value={item} onChange={()=>{addList(item);updateList();}}
-                                      />{item}
-                                </label>
+                                <Checkbox onChange={()=>{addList(item);updateList();}}>
+                                    {item}
+                                </Checkbox>
                                 <br/>
                             </Menu.Item>
                             
